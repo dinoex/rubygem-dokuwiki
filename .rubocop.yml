@@ -1,0 +1,25 @@
+inherit_from: .rubocop_todo.yml
+
+# Configuration parameters: EnforcedStyle, EnforcedStyleForEmptyBrackets.
+# SupportedStyles: space, no_space, compact
+# SupportedStylesForEmptyBrackets: space, no_space
+Layout/SpaceInsideArrayLiteralBrackets:
+  EnforcedStyle: space
+  Exclude:
+    - 'dokuwiki.gemspec'
+
+# Configuration parameters: EnforcedStyle.
+# SupportedStyles: space, no_space
+Layout/SpaceInsideParens:
+  EnforcedStyle: space
+
+# Configuration parameters: EnforcedStyle, EnforcedStyleForEmptyBrackets.
+# SupportedStyles: space, no_space
+# SupportedStylesForEmptyBrackets: space, no_space
+Layout/SpaceInsideReferenceBrackets:
+  EnforcedStyle: space
+
+# URISchemes: http, https
+Metrics/LineLength:
+  Exclude:
+    - 'dokuwiki.gemspec'
