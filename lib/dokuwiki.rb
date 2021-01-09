@@ -177,7 +177,7 @@ module DokuWiki
         if @media_dir.nil?
           filename
         else
-          "#{MEDIA_DIR}/#{filename}"
+          "#{@media_dir}/#{filename}"
         end
       save_wiki_body( path, url )
     end
