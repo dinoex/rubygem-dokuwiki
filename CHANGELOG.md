@@ -1,3 +1,7 @@
+## 1.2 (2022-04-13)
+
+  - add support for csv, svg and txt media files
+
 ## 1.1 (2021-01-09)
 
   - fix media dir

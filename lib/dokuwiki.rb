@@ -1,4 +1,4 @@
-#!/usr/local/bin/ruby -w
+# frozen_string_literal: true
 
 # = dokuwiki.rb
 #
@@ -14,7 +14,6 @@
 require 'rubygems'
 require 'http-cookie'
 require 'mechanize'
-require 'pp'
 
 # Module for accessing DokuWiki
 module DokuWiki
@@ -44,9 +43,9 @@ module DokuWiki
   #
   class DokuWikiAccess
     # extension for files in dokuwiki syntax
-    EXTENSION = 'wiki'.freeze
+    EXTENSION = 'wiki'
     # filename for cookie cache
-    COOKIES = 'cookies.txt'.freeze
+    COOKIES = 'cookies.txt'
 
     # directory for media download cache
     attr_accessor :media_dir
@@ -185,14 +184,15 @@ module DokuWiki
     # save wiki path to file
     def save_wiki_path( wikipath )
       filename = wikipath.split( ':' ).last
-      case wikipath
-      when /[.]jpe?g$/, /[.]png$/, /[.]pdf$/
+      extension = filename.split( '.' ).last
+      case extension
+      when 'jpg', 'jpeg', 'png', 'svg', 'pdf', 'csv', 'txt', '.text'
         url = @dokuwiki_media_url + wikipath
         save_wiki_media( filename, url )
-      when /[.]css$/
+      when 'css'
         url = @dokuwiki_css_url + wikipath.sub( /[.]css$/, '' )
         save_wiki_media( filename, url )
-      when /[.]html$/
+      when 'html'
         url = @dokuwiki_page_url + wikipath.sub( /[.]html$/, '' )
         save_wiki_body( filename, url )
       else
