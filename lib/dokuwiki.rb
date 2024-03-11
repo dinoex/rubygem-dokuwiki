@@ -26,6 +26,7 @@ module DokuWiki
   #   DokuWiki.upload_dir
   #   DokuWiki.wait_second
   #   DokuWiki.namespace( wikipath )
+  #   DokuWiki.export_url( wikipath )
   #   DokuWiki.edit_url( wikipath )
   #   DokuWiki.get( url )
   #   DokuWiki.login( wikipath, user, pass )
@@ -86,6 +87,11 @@ module DokuWiki
     # convert path to namesape
     def namespace( wikipath )
       wikipath.gsub( ':', '%3A' ).freeze
+    end
+
+    # make export url
+    def export_url( wikipath )
+      "#{@dokuwiki_page_url}#{wikipath}&do=export_raw"
     end
 
     # make edit url
@@ -157,11 +163,10 @@ module DokuWiki
 
     # save wiki source to file
     def save_wiki_source( page, filename )
-      f = page.form_with( id: 'dw__editform' )
-      wikitext = f.field_with( name: 'wikitext' ).value.delete( "\r" )
+      wikitext = ''
+      wikitext = page.body \
+        if page.header[ 'content-type' ].include?( 'text/plain' )
       file_put_contents( filename, wikitext )
-      button = f.button_with( name: 'do[draftdel]' )
-      @agent.submit( f, button )
     end
 
     # save wiki body to file
@@ -196,7 +201,7 @@ module DokuWiki
         url = @dokuwiki_page_url + wikipath.sub( /[.]html$/, '' )
         save_wiki_body( filename, url )
       else
-        url = edit_url( wikipath )
+        url = export_url( wikipath )
         filename << ".#{EXTENSION}"
         page = get( url )
         save_wiki_source( page, filename )

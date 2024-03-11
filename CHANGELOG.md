@@ -1,3 +1,7 @@
+## 1.3 (2024-03-11)
+
+  - downloads pages via export_raw instead of edit
+
 ## 1.2 (2022-04-13)
 
   - add support for csv, svg and txt media files
